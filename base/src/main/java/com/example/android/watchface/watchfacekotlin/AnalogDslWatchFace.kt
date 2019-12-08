@@ -20,9 +20,9 @@ import android.graphics.Color
 import com.example.android.watchface.watchfacekotlin.model.AnalogWatchFaceStyle
 import com.example.android.watchface.watchfacekotlin.service.AbstractKotlinWatchFace
 import com.example.android.watchface.watchfacekotlin.service.analogWatchFaceStyle
-
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 /**
  * Renders watch face via data object created by DSL.
@@ -38,8 +38,8 @@ class AnalogDslWatchFace : AbstractKotlinWatchFace() {
         return analogWatchFaceStyle {
             watchFaceColors {
                 main = Color.GREEN
-                highlight = Color.parseColor("#BB0000")
-                background = Color.WHITE
+                highlight = Color.parseColor("#00BB32")
+                background = Color.BLACK
             }
             watchFaceDimensions {
                 hourHandRadiusRatio = 0.2f
@@ -47,18 +47,27 @@ class AnalogDslWatchFace : AbstractKotlinWatchFace() {
                 secondHandRadiusRatio = 0.9f
             }
             watchFaceBackgroundImage {
-                backgroundImageResource = if (getAMPM() === "AM")
+                backgroundImageResource = if (getAMPM() === "GM")
                     R.drawable.img01
-                else
+                else if (getAMPM() === "GN")
                     R.drawable.img05
+                else
+                    R.drawable.img01
             }
         }
     }
     private fun getAMPM(): String {
         val date = Date()
-        return if (SimpleDateFormat("a", Locale.getDefault()).format(date) === "AM")
-            "AM"
-        else
-            "PM"
-    }
+        return when (SimpleDateFormat("H", Locale.getDefault()).format(date)){
+            "07", "08", "09" -> {
+                "GM"
+            }
+            "22", "23", "0" -> {
+                "GN"
+            }
+            else -> {
+                "other"
+            }
+        }
+        }
 }
