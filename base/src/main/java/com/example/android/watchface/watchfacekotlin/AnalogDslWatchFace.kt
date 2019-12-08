@@ -40,6 +40,7 @@ class AnalogDslWatchFace : AbstractKotlinWatchFace() {
                 main = Color.GREEN
                 highlight = Color.parseColor("#00BB32")
                 background = Color.BLACK
+                shadow = Color.WHITE
             }
             watchFaceDimensions {
                 hourHandRadiusRatio = 0.2f
@@ -48,10 +49,10 @@ class AnalogDslWatchFace : AbstractKotlinWatchFace() {
             }
             watchFaceBackgroundImage {
                 backgroundImageResource = when {
-                    getAMPM() === "GM" -> R.drawable.img01
-                    getAMPM() === "GN" -> R.drawable.img02
-                    getAMPM() === "SL" -> R.drawable.img03
-                    else -> R.drawable.img05
+                    getAMPM() === "GM" -> R.drawable.img1
+                    getAMPM() === "GN" -> R.drawable.img2
+                    getAMPM() === "SL" -> R.drawable.img3
+                    else -> R.drawable.club
                 }
             }
         }
