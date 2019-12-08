@@ -47,20 +47,23 @@ class AnalogDslWatchFace : AbstractKotlinWatchFace() {
                 secondHandRadiusRatio = 0.9f
             }
             watchFaceBackgroundImage {
-                backgroundImageResource = if (getAMPM() === "GM")
-                    R.drawable.img01
-                else if (getAMPM() === "GN")
-                    R.drawable.img05
-                else
-                    R.drawable.img01
+                backgroundImageResource = when {
+                    getAMPM() === "GM" -> R.drawable.img01
+                    getAMPM() === "GN" -> R.drawable.img02
+                    getAMPM() === "SL" -> R.drawable.img03
+                    else -> R.drawable.img05
+                }
             }
         }
     }
     private fun getAMPM(): String {
         val date = Date()
         return when (SimpleDateFormat("H", Locale.getDefault()).format(date)){
-            "07", "08", "09" -> {
+            "06", "07", "08" -> {
                 "GM"
+            }
+            "09", "10" -> {
+                "SL"
             }
             "22", "23", "0" -> {
                 "GN"
